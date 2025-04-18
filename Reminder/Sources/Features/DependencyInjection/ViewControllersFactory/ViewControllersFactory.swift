@@ -7,6 +7,28 @@
 
 import UIKit
 
-class ViewControllersFactory: NSObject {
+final class ViewControllersFactory: ViewControllersFactoryProtocol {
+    
+    func makeSplashController(delegate: any SplashFlowDelegate) -> SplashViewController {
+        let splashView = SplashView()
+        let vc = SplashViewController(contentView: splashView, delegate: delegate)
+        
+        return vc
+    }
+    
+    func makeLoginBottomSheetViewController(delegate: any LoginBottomSheetFlowDelegate) -> LoginBottomSheetViewController {
+        let contentView = LoginBottomSheetView()
+        let vc = LoginBottomSheetViewController(contentView: contentView, delegate: delegate)
+        
+        return vc
+    }
+    
+    func makeHomeViewController(delegate: any HomeFlowDelegate) -> HomeViewController {
+        let contentView = HomeView()
+        let viewController = HomeViewController(contentView: contentView, delegate: delegate)
+        
+        return viewController
+    }
+    
 
 }

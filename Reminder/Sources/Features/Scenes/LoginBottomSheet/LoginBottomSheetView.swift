@@ -67,29 +67,27 @@ final class LoginBottomSheetView: UIView {
         return textField
     } ()
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("login.button.title".localized, for: .normal)
         button.backgroundColor = ColorsConstants.primaryRedBase
         button.layer.cornerRadius = MetricsConstants.medium
         button.tintColor = .white
         button.titleLabel?.font = TextHeadings.subHeading
-        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     } ()
     
+    @objc
+    private func loginButtonTapped() {
+        delegate?.loginBottomSheetViewDidTapLoginButton(user: emailTextField.text ?? "", password: passwordTextField.text ?? "")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        let exampleGest = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        titleLabel.addGestureRecognizer(exampleGest)
-    }
-    
-    @objc
-    private func handleTap() {
-        debugPrint("Tapped")
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -137,10 +135,4 @@ final class LoginBottomSheetView: UIView {
             
         ])
     }
-    
-    @objc
-    private func loginButtonTapped() {
-        delegate?.loginBottomSheetViewDidTapLoginButton(user: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-    }
-    
 }
