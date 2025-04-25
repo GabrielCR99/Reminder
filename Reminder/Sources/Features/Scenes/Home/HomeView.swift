@@ -73,6 +73,26 @@ final class HomeView: UIView {
         return button
     } ()
     
+    let myPrescriptionsButton: ButtonHomeView = {
+        let button = ButtonHomeView(icon: .init(named: "Paper"),
+                                    title: "Minhas receitas",
+                                    description: "Acompanhe os medicamentos e gerencie lembretes"
+        )
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    } ()
+    
+    let newPrescriptionButton: ButtonHomeView = {
+        let button = ButtonHomeView(icon: .init(named: "Pills"),
+                                    title: "Nova receita",
+                                    description: "Cadastre novos lembretes de receitas"
+        )
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    } ()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = ColorsConstants.gray600
@@ -103,6 +123,8 @@ final class HomeView: UIView {
         
         addSubview(contentBackground)
         contentBackground.addSubview(feedbackButton)
+        contentBackground.addSubview(myPrescriptionsButton)
+        contentBackground.addSubview(newPrescriptionButton)
         
         setupConstraints()
         setupImageGesture()
@@ -138,7 +160,17 @@ final class HomeView: UIView {
             feedbackButton.bottomAnchor.constraint(equalTo: contentBackground.bottomAnchor, constant: -MetricsConstants.medium),
             feedbackButton.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: MetricsConstants.medium),
             feedbackButton.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -MetricsConstants.medium),
-            ])
+            
+            myPrescriptionsButton.topAnchor.constraint(equalTo: contentBackground.topAnchor, constant: MetricsConstants.huge),
+            myPrescriptionsButton.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: MetricsConstants.medium),
+            myPrescriptionsButton.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -MetricsConstants.medium),
+            myPrescriptionsButton.heightAnchor.constraint(equalToConstant: 112),
+            
+            newPrescriptionButton.topAnchor.constraint(equalTo: myPrescriptionsButton.bottomAnchor, constant: MetricsConstants.medium),
+            newPrescriptionButton.leadingAnchor.constraint(equalTo: myPrescriptionsButton.leadingAnchor),
+            newPrescriptionButton.trailingAnchor.constraint(equalTo: myPrescriptionsButton.trailingAnchor),
+            newPrescriptionButton.heightAnchor.constraint(equalTo: myPrescriptionsButton.heightAnchor),
+        ])
     }
     
     private func setupImageGesture() {

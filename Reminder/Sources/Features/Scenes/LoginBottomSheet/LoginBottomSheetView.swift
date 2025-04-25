@@ -97,13 +97,7 @@ final class LoginBottomSheetView: UIView {
     private func setupUI() {
         backgroundColor = .white
         layer.cornerRadius = MetricsConstants.small
-        
-        addSubview(titleLabel)
-        addSubview(emailTextField)
-        addSubview(passwordTextField)
-        addSubview(loginButton)
-        addSubview(loginTextFieldLabel)
-        addSubview(passwordTextFieldLabel)
+        addSubviews(titleLabel, emailTextField, passwordTextField, loginButton, loginTextFieldLabel, passwordTextFieldLabel)
         setupConstraints()
     }
     

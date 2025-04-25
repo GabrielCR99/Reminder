@@ -32,7 +32,7 @@ final class HomeViewController: UIViewController {
     }
     
     private func checkForExistingData() {
-        if let user = UserDefaultsManager.loadUser() {
+        if UserDefaultsManager.loadUser() != nil {
             contentView.nameTextField.text = UserDefaultsManager.loadUserName()
         }
         
