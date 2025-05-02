@@ -8,6 +8,8 @@
 import UIKit
 
 final class ButtonHomeView: UIView {
+    var tapAction: (() -> Void)?
+    
     private let iconView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorsConstants.gray600
@@ -53,6 +55,7 @@ final class ButtonHomeView: UIView {
         return imageView
     } ()
     
+    // MARK: - Init
     init(icon: UIImage?, title: String, description: String) {
         super.init(frame: .zero)
         iconImageView.image = icon
@@ -61,11 +64,25 @@ final class ButtonHomeView: UIView {
         backgroundColor = ColorsConstants.gray700
         layer.cornerRadius = 7
         translatesAutoresizingMaskIntoConstraints = false
+        
+        setupGesture()
         setupUI()
     }
     
+    
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
+    }
+    
+    @objc
+    private func handleTap() {
+        tapAction?()
     }
     
     private func setupUI() {
@@ -73,25 +90,30 @@ final class ButtonHomeView: UIView {
         addSubviews(iconView, titleLabel, descriptionLabel, arrowImageView)
         
         NSLayoutConstraint.activate([
+            // Icon View
             iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: MetricsConstants.medium),
             iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
             iconView.widthAnchor.constraint(equalToConstant: 80),
             iconView.heightAnchor.constraint(equalToConstant: 80),
             
+            // Icon Image View
             iconImageView.centerXAnchor.constraint(equalTo: iconView.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: MetricsConstants.huge),
             iconImageView.heightAnchor.constraint(equalToConstant: MetricsConstants.huge),
             
+            // Title Label
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: MetricsConstants.medium),
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: MetricsConstants.medium),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
             
+            // Description Label
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: MetricsConstants.medium),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
             descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 16),
             
+            // Arrow Image View
             arrowImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             arrowImageView.widthAnchor.constraint(equalToConstant: 16),

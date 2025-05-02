@@ -6,8 +6,8 @@ target 'Reminder' do
   use_frameworks!
 
   # Pods for Reminder
-  pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'SQLite.swift'
 end
 
 post_install do |installer|

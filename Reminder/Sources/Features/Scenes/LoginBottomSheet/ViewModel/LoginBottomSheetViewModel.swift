@@ -16,7 +16,7 @@ final class LoginBottomSheetViewModel {
         Auth.auth().signIn(withEmail: username, password: password) {
             [weak self] result, error in
             if let error {
-                debugPrint("Error: \(error)")
+                dump("Error: \(error)")
                 self?.errorResult?(error.localizedDescription)
             } else {
                 self?.didFinishAuthentication?(username)
