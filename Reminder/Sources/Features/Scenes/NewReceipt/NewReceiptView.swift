@@ -11,7 +11,7 @@ import UIKit
 final class NewReceiptView: UIView {
     let backButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(.init(systemName: "arrow.left"), for: .normal)
+        button.setImage(.init(named: "ArrowLeft"), for: .normal)
         button.tintColor = ColorsConstants.gray100
         button.translatesAutoresizingMaskIntoConstraints = false
         
