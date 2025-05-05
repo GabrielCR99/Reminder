@@ -180,7 +180,6 @@ final class HomeView: UIView {
     
     @objc
     private func handleImageTap() {
-        dump(#function)
         delegate?.didTapProfileImage()
     }
 }

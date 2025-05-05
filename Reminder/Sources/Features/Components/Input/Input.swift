@@ -18,7 +18,7 @@ final class Input: UIView {
         return label
     } ()
     
-    private let textField: UITextField = {
+    let textField: UITextField = {
         let textField = UITextField()
         textField.font = TextHeadings.input
         textField.textColor = ColorsConstants.gray100
@@ -74,7 +74,7 @@ final class Input: UIView {
             ])
     }
     
-    func getText() -> String? {
-        return textField.text
+    func getText() -> String {
+        return textField.text ?? ""
     }
 }
