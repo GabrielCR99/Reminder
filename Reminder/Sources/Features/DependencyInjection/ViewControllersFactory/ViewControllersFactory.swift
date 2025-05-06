@@ -8,8 +8,8 @@
 import UIKit
 
 final class ViewControllersFactory: ViewControllersFactoryProtocol {
-    func makeRecipesViewController() -> NewReceiptViewController {
-        return NewReceiptViewController()
+    func makeRecipesViewController() -> NewRecipeViewController {
+        return NewRecipeViewController()
     }
     
     
@@ -32,5 +32,12 @@ final class ViewControllersFactory: ViewControllersFactoryProtocol {
         let viewController = HomeViewController(contentView: contentView, delegate: delegate)
         
         return viewController
+    }
+    
+    func makeMyRecipesViewController(delegate: any MyRecipesFlowDelegate) -> MyRecipesViewController {
+        let contentView = MyRecipesView()
+        let vc = MyRecipesViewController(contentView: contentView, delegate: delegate)
+        
+        return vc
     }
 }

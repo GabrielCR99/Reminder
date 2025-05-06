@@ -9,4 +9,5 @@
 public protocol HomeFlowDelegate: AnyObject {
     func navigateToRecipes()
     func logout()
+    func navigateToMyRecipes()
 }

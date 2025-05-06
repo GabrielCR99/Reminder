@@ -26,12 +26,11 @@ final class ReminderFlowController {
     
     // MARK: - Start flow
     public func start() -> UINavigationController? {
-        let startVC = /*viewControllerFactory.makeSplashController(delegate: self)*/ MyReceiptsViewController(contentView: .init())
+        let startVC = viewControllerFactory.makeSplashController(delegate: self)
         navigationController = UINavigationController(rootViewController: startVC)
         
         return navigationController
     }
-    
 }
 
 // MARK: - Login
@@ -59,12 +58,24 @@ extension ReminderFlowController: SplashFlowDelegate {
 extension ReminderFlowController: HomeFlowDelegate {
     func navigateToRecipes() {
         let vc = viewControllerFactory.makeRecipesViewController()
-        navigationController?.navigationBar.isHidden = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func logout() {
         navigationController?.popViewController(animated: true)
         openLoginBottomSheet()
+    }
+    
+    func navigateToMyRecipes() {
+        let vc = viewControllerFactory.makeMyRecipesViewController(delegate: self)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: - MyRecipes
+extension ReminderFlowController: MyRecipesFlowDelegate {
+    func goToNewRecipes() {
+        
     }
 }

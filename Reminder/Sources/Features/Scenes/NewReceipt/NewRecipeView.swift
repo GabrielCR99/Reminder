@@ -1,5 +1,5 @@
 //
-//  NewReceiptView.swift
+//  NewRecipeView.swift
 //  Reminder
 //
 //  Created by Gabriel Roveri on 24/04/25.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class NewReceiptView: UIView {
+final class NewRecipeView: UIView {
     let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(.init(named: "ArrowLeft"), for: .normal)
@@ -210,7 +210,7 @@ final class NewReceiptView: UIView {
     }
 }
 
-extension NewReceiptView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension NewRecipeView: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

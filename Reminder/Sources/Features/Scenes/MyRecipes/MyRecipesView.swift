@@ -1,19 +1,19 @@
 //
-//  MyReceiptsView.swift
+//  MyRecipesView.swift
 //  Reminder
 //
 //  Created by Gabriel Roveri on 05/05/25.
 //
 
-protocol MyReceiptsViewDelegate: AnyObject {
+protocol MyRecipesViewDelegate: AnyObject {
     func backButtonTapped()
     func addButtonTapped()
 }
 
 import UIKit
 
-final class MyReceiptsView: UIView {
-    weak public var delegate: (any MyReceiptsViewDelegate)?
+final class MyRecipesView: UIView {
+    weak public var delegate: (any MyRecipesViewDelegate)?
     
     // MARK: - Views
     
@@ -75,6 +75,15 @@ final class MyReceiptsView: UIView {
         return view
     } ()
     
+    public let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    } ()
+    
     // MARK: - Init
     
     required init?(coder: NSCoder) {
@@ -108,6 +117,7 @@ final class MyReceiptsView: UIView {
     private func setupView() {
         addSubviews(headerBackground, contentBackground)
         headerBackground.addSubviews(backButton, titleLabel, subtitleLabel, addButton)
+        contentBackground.addSubview(tableView)
         
         setupConstraints()
     }
@@ -140,6 +150,11 @@ final class MyReceiptsView: UIView {
             contentBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentBackground.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: contentBackground.topAnchor, constant: MetricsConstants.medium),
+            tableView.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: MetricsConstants.medium),
+            tableView.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -MetricsConstants.medium),
+            tableView.bottomAnchor.constraint(equalTo: contentBackground.bottomAnchor),
         ])
     }
 }

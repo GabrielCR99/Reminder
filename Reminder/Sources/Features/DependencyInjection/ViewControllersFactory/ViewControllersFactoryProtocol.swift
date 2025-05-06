@@ -11,5 +11,6 @@ protocol ViewControllersFactoryProtocol {
     func makeSplashController(delegate: any SplashFlowDelegate) -> SplashViewController
     func makeLoginBottomSheetViewController(delegate: any LoginBottomSheetFlowDelegate) -> LoginBottomSheetViewController
     func makeHomeViewController(delegate: any HomeFlowDelegate) -> HomeViewController
-    func makeRecipesViewController() -> NewReceiptViewController
+    func makeRecipesViewController() -> NewRecipeViewController
+    func makeMyRecipesViewController(delegate: any MyRecipesFlowDelegate) -> MyRecipesViewController
 }
