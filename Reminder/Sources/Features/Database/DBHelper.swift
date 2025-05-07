@@ -65,4 +65,42 @@ final class DBHelper {
         }
         sqlite3_finalize(statement)
     }
+    
+    func fetchRecipes() -> [Medicine] {
+        let query = "SELECT * FROM Receipts;"
+        var statement: OpaquePointer?
+        var result: [Medicine] = []
+        
+        if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
+            while sqlite3_step(statement) == SQLITE_ROW {
+                let id = Int(sqlite3_column_int(statement, 0))
+                let remedy =  sqlite3_column_text(statement, 1).flatMap { String(cString: $0)} ?? "Unknown"
+                let time =  sqlite3_column_text(statement, 2).flatMap { String(cString: $0)} ?? "Unknown"
+                let recurrence = sqlite3_column_text(statement, 3).flatMap { String(cString: $0)} ?? "Unknown"
+                result.append((id, remedy, time, recurrence))
+            }
+        } else {
+            dump(sqlite3_errmsg(db))
+        }
+        
+        sqlite3_finalize(statement)
+        
+        return result
+    }
+    
+    func deleteRecipeById(_ id: Int) {
+        let query = "DELETE FROM Receipts WHERE id = ?;"
+        var statement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
+            sqlite3_bind_int(statement, 1, Int32(id))
+            
+            if sqlite3_step(statement) != SQLITE_DONE {
+                dump(sqlite3_errmsg(db))
+            }
+            
+        }
+        
+        sqlite3_finalize(statement)
+    }
 }

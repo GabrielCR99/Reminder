@@ -151,7 +151,7 @@ final class MyRecipesView: UIView {
             contentBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentBackground.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            tableView.topAnchor.constraint(equalTo: contentBackground.topAnchor, constant: MetricsConstants.medium),
+            tableView.topAnchor.constraint(equalTo: contentBackground.topAnchor, constant: MetricsConstants.small),
             tableView.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: MetricsConstants.medium),
             tableView.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -MetricsConstants.medium),
             tableView.bottomAnchor.constraint(equalTo: contentBackground.bottomAnchor),

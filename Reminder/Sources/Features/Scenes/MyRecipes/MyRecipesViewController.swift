@@ -10,14 +10,9 @@ import UIKit
 final class MyRecipesViewController: UIViewController {
     let contentView: MyRecipesView
     weak var delegate: (any MyRecipesFlowDelegate)?
+    let viewModel = MyRecipesViewModel()
     
-    private let mockRecipes: [(title: String, time: String, recurrence: String)] = [
-        (title: "Buscopan", time: "13:00", recurrence: "2 em 2 horas"),
-        (title: "Buscopan", time: "13:00", recurrence: "2 em 2 horas"),
-        (title: "Buscopan", time: "13:00", recurrence: "2 em 2 horas"),
-        (title: "Buscopan", time: "13:00", recurrence: "2 em 2 horas"),
-        (title: "Buscopan", time: "13:00", recurrence: "2 em 2 horas"),
-    ]
+    private var medicines: [Medicine] = []
     
     init(contentView: MyRecipesView,
          delegate: any MyRecipesFlowDelegate) {
@@ -34,6 +29,11 @@ final class MyRecipesViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupTableView()
+        loadData()
+    }
+    
+    private func loadData() {
+        medicines = viewModel.fetchData()
     }
     
     private func setup() {
@@ -65,7 +65,7 @@ final class MyRecipesViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension MyRecipesViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        mockRecipes.count
+        medicines.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -94,9 +94,17 @@ extension MyRecipesViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RemedyTableViewCell.identifier,
                                                        for: indexPath) as? RemedyTableViewCell
         else { return UITableViewCell() }
-        let recipe = mockRecipes[indexPath.section]
+        let recipe = medicines[indexPath.section]
         cell.configure(title: recipe.title, time: recipe.time, recurrence: recipe.recurrence)
         cell.selectionStyle = .none
+        cell.onDelete = { [weak self] in
+            if let self {
+                self.viewModel.deleteRecipeById(recipe.id)
+                self.medicines.remove(at: indexPath.section)
+                tableView.deleteSections(IndexSet(integer: indexPath.section),
+                                         with: .fade)
+            }
+        }
         
         return cell
     }

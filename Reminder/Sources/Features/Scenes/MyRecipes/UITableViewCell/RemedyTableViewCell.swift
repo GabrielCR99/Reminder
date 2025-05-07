@@ -9,6 +9,7 @@ import UIKit
 
 final class RemedyTableViewCell: UITableViewCell {
     static let identifier = "RemedyTableViewCell"
+    var onDelete: (() -> Void)?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -87,6 +88,7 @@ final class RemedyTableViewCell: UITableViewCell {
     }
     
     private func setupView() {
+        trashIconButton.addTarget(self, action: #selector(trashIconButtonTapped), for: .touchUpInside)
         contentView.backgroundColor = ColorsConstants.gray700
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 12
@@ -135,6 +137,11 @@ final class RemedyTableViewCell: UITableViewCell {
             
             contentView.bottomAnchor.constraint(equalTo: timeBackgroudView.bottomAnchor, constant: MetricsConstants.medium),
         ])
+    }
+    
+    @objc
+    private func trashIconButtonTapped() {
+        onDelete?()
     }
     
     func configure(title: String, time: String, recurrence: String) {
