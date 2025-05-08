@@ -7,4 +7,5 @@
 
 public protocol MyRecipesFlowDelegate: AnyObject {
     func goToNewRecipes()
+    func popScreen()
 }

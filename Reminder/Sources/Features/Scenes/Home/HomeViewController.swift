@@ -88,7 +88,7 @@ extension HomeViewController: HomeViewDelegate {
     }
     
     func didTapNewPrescriptionButton() {
-        flowDelegate.navigateToRecipes()
+        flowDelegate.navigateToNewRecipes()
     }
     
     func didTapMyPrescriptionsButton() {

@@ -10,7 +10,7 @@ import UIKit
 
 final class NewRecipeViewController: UIViewController {
     private let newRecipeView = NewRecipeView()
-    private let viewModel = NewReceiptViewModel()
+    private let viewModel = NewRecipeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,8 @@ final class NewRecipeViewController: UIViewController {
     }
     
     private func setupView() {
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.hidesBackButton = true
         view.backgroundColor = ColorsConstants.gray800
         view.addSubview(newRecipeView)
         
@@ -36,7 +38,9 @@ final class NewRecipeViewController: UIViewController {
     }
     
     private func setupActions() {
-        newRecipeView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        newRecipeView.backButton.tapAction = { [weak self] in
+            self?.backButtonTapped()
+        }
         newRecipeView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
@@ -47,11 +51,10 @@ final class NewRecipeViewController: UIViewController {
         let recurrence = newRecipeView.recurrenceInput.getText()
         let takeNow = false
         
-        viewModel.addReceipt(remedy: remedy, time: time, recurrence: recurrence, takeNow: takeNow)
+        viewModel.addRecipe(remedy: remedy, time: time, recurrence: recurrence, takeNow: takeNow)
         navigationController?.popViewController(animated: true)
     }
     
-    @objc
     private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }

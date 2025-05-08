@@ -56,8 +56,8 @@ extension ReminderFlowController: SplashFlowDelegate {
 
 // MARK: - Home
 extension ReminderFlowController: HomeFlowDelegate {
-    func navigateToRecipes() {
-        let vc = viewControllerFactory.makeRecipesViewController()
+    func navigateToNewRecipes() {
+        let vc = viewControllerFactory.makeNewRecipesViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -68,7 +68,6 @@ extension ReminderFlowController: HomeFlowDelegate {
     
     func navigateToMyRecipes() {
         let vc = viewControllerFactory.makeMyRecipesViewController(delegate: self)
-        navigationController?.navigationBar.isHidden = true
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -76,6 +75,10 @@ extension ReminderFlowController: HomeFlowDelegate {
 // MARK: - MyRecipes
 extension ReminderFlowController: MyRecipesFlowDelegate {
     func goToNewRecipes() {
-        
+        navigateToNewRecipes()
+    }
+    
+    func popScreen() {
+        navigationController?.popViewController(animated: true)
     }
 }

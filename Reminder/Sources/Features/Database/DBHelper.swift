@@ -28,7 +28,7 @@ final class DBHelper {
     
     private func createTable() {
         let query = """
-            CREATE TABLE IF NOT EXISTS Receipts (
+            CREATE TABLE IF NOT EXISTS Recipes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 remedy TEXT,
                 time TEXT,
@@ -46,9 +46,9 @@ final class DBHelper {
         sqlite3_finalize(statement)
     }
     
-    func insertReceipt(remedy: String, time: String, recurrence: String, takeNow: Bool) {
+    func insertRecipe(remedy: String, time: String, recurrence: String, takeNow: Bool) {
         let query = """
-            INSERT INTO Receipts (remedy, time, recurrence, takeNow)
+            INSERT INTO Recipes (remedy, time, recurrence, takeNow)
             VALUES (?, ?, ?, ?);
             """
         var statement: OpaquePointer?
@@ -67,7 +67,7 @@ final class DBHelper {
     }
     
     func fetchRecipes() -> [Medicine] {
-        let query = "SELECT * FROM Receipts;"
+        let query = "SELECT * FROM Recipes;"
         var statement: OpaquePointer?
         var result: [Medicine] = []
         
@@ -89,7 +89,7 @@ final class DBHelper {
     }
     
     func deleteRecipeById(_ id: Int) {
-        let query = "DELETE FROM Receipts WHERE id = ?;"
+        let query = "DELETE FROM Recipes WHERE id = ?;"
         var statement: OpaquePointer?
         
         if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {

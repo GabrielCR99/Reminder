@@ -8,9 +8,9 @@
 import UIKit
 
 final class MyRecipesViewController: UIViewController {
-    let contentView: MyRecipesView
+    private let contentView: MyRecipesView
+    private let viewModel = MyRecipesViewModel()
     weak var delegate: (any MyRecipesFlowDelegate)?
-    let viewModel = MyRecipesViewModel()
     
     private var medicines: [Medicine] = []
     
@@ -27,7 +27,7 @@ final class MyRecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupView()
         setupTableView()
         loadData()
     }
@@ -36,11 +36,12 @@ final class MyRecipesViewController: UIViewController {
         medicines = viewModel.fetchData()
     }
     
-    private func setup() {
-        view.addSubview(contentView)
-        view.backgroundColor = ColorsConstants.gray800
+    private func setupView() {
+        contentView.delegate = self
         navigationController?.navigationBar.isHidden = false
         navigationItem.hidesBackButton = true
+        view.addSubview(contentView)
+        view.backgroundColor = ColorsConstants.gray800
         
         setupConstraints()
     }
@@ -99,13 +100,27 @@ extension MyRecipesViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.onDelete = { [weak self] in
             if let self {
-                self.viewModel.deleteRecipeById(recipe.id)
-                self.medicines.remove(at: indexPath.section)
-                tableView.deleteSections(IndexSet(integer: indexPath.section),
-                                         with: .fade)
+                if let actualIndexPath = tableView.indexPath(for: cell) {
+                    if indexPath.section < self.medicines.count {
+                        self.viewModel.deleteRecipeById(recipe.id)
+                        self.medicines.remove(at: actualIndexPath.section)
+                        tableView.deleteSections(IndexSet(integer: actualIndexPath.section),
+                                                 with: .fade)
+                    }
+                }
             }
         }
         
         return cell
+    }
+}
+
+extension MyRecipesViewController: MyRecipesViewDelegate {
+    func addButtonTapped() {
+        
+    }
+    
+    func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }

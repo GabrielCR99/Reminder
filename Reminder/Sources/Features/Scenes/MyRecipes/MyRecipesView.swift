@@ -24,11 +24,9 @@ final class MyRecipesView: UIView {
         
         return view
     } ()
-    
-    private let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(.init(named: "ArrowLeft"), for: .normal)
-        button.tintColor = ColorsConstants.gray100
+
+    private let backButton: BackButton = {
+        let button = BackButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -100,7 +98,9 @@ final class MyRecipesView: UIView {
     // MARK: - Private methods
     
     private func setupButtonTargets() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        backButton.tapAction = { [weak self] in
+            self?.delegate?.backButtonTapped()
+        }
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
@@ -124,21 +124,25 @@ final class MyRecipesView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            // Header Background
             headerBackground.topAnchor.constraint(equalTo: topAnchor),
             headerBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             headerBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             headerBackground.heightAnchor.constraint(equalToConstant: MetricsConstants.backgroundProfileSize),
             
+            // Back Button
             backButton.leadingAnchor.constraint(equalTo: headerBackground.leadingAnchor, constant: MetricsConstants.medium),
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -MetricsConstants.small),
             backButton.heightAnchor.constraint(equalToConstant: 24),
             backButton.widthAnchor.constraint(equalToConstant: 24),
             
+            // Add Button
             addButton.trailingAnchor.constraint(equalTo: headerBackground.trailingAnchor, constant: -MetricsConstants.medium),
             addButton.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             addButton.heightAnchor.constraint(equalToConstant: 40),
             addButton.widthAnchor.constraint(equalToConstant: 40),
             
+            // Title Label
             titleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: MetricsConstants.medium),
             titleLabel.leadingAnchor.constraint(equalTo: backButton.leadingAnchor),
             

@@ -8,8 +8,8 @@
 import UIKit
 
 final class ViewControllersFactory: ViewControllersFactoryProtocol {
-    func makeRecipesViewController() -> NewRecipeViewController {
-        return NewRecipeViewController()
+    func makeNewRecipesViewController() -> NewRecipeViewController {
+        NewRecipeViewController()
     }
     
     

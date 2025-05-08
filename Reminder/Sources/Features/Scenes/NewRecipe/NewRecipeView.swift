@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 
 final class NewRecipeView: UIView {
-    let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(.init(named: "ArrowLeft"), for: .normal)
-        button.tintColor = ColorsConstants.gray100
+    let backButton: BackButton = {
+        let button = BackButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -20,7 +18,7 @@ final class NewRecipeView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "New Receipt"
+        label.text = "New Recipe"
         label.font = TextHeadings.heading
         label.textColor = ColorsConstants.primaryRedBase
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +28,7 @@ final class NewRecipeView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Add a new receipt to your list."
+        label.text = "Add a new Recipe to your list."
         label.font = TextHeadings.body
         label.textColor = ColorsConstants.gray200
         label.numberOfLines = 0
@@ -41,7 +39,7 @@ final class NewRecipeView: UIView {
     
     let addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("+ Add Receipt", for: .normal)
+        button.setTitle("+ Add Recipe", for: .normal)
         button.titleLabel?.font = TextHeadings.subHeading
         button.backgroundColor = ColorsConstants.primaryRedBase
         button.layer.cornerRadius = 12
