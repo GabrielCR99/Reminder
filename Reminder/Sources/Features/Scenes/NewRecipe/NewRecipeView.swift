@@ -90,6 +90,7 @@ final class NewRecipeView: UIView {
         setupConstraints()
         setupTimeInput()
         setupRecurrenceInput()
+        setupObservers()
         validateInputs()
     }
     
@@ -155,7 +156,6 @@ final class NewRecipeView: UIView {
         remedyInput.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         timeInput.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         recurrenceInput.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
     }
     
     @objc

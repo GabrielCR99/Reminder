@@ -87,6 +87,7 @@ final class LoginBottomSheetView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupDelegates()
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
@@ -99,6 +100,11 @@ final class LoginBottomSheetView: UIView {
         layer.cornerRadius = MetricsConstants.small
         addSubviews(titleLabel, emailTextField, passwordTextField, loginButton, loginTextFieldLabel, passwordTextFieldLabel)
         setupConstraints()
+    }
+
+    private func setupDelegates() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     private func setupConstraints() {
@@ -126,7 +132,14 @@ final class LoginBottomSheetView: UIView {
             loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: MetricsConstants.medium),
             loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -MetricsConstants.medium),
             loginButton.heightAnchor.constraint(equalToConstant: MetricsConstants.buttoSize),
-            
         ])
+    }
+}
+
+extension LoginBottomSheetView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
 }

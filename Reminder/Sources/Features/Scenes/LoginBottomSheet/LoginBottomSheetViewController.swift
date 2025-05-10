@@ -32,6 +32,40 @@ final class LoginBottomSheetViewController: UIViewController {
         bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        contentView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
+        // UIView.animate(withDuration: 0.3) {
+        // self.view.frame.origin.y = -keyboardHeight / 2
+        // }
+    }
+
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
+        contentView.transform = .identity
+        // UIView.animate(withDuration: 0.3) {
+        // self.view.frame.origin.y = 0
+        // }
+    }
+    
     private func setupUI() {
         view.addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
