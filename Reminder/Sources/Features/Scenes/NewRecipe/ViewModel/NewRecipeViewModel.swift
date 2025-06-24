@@ -24,7 +24,7 @@ final class NewRecipeViewModel {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        guard let initialDate = formatter.date(from: time) else { return }
+        guard let _ = formatter.date(from: time) else { return }
         
         let calendar = Calendar.current
         var currentDate = Date()

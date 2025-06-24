@@ -28,7 +28,6 @@ final class LoginBottomSheetViewController: UIViewController {
         super.viewDidLoad()
         contentView.delegate = self
         setupUI()
-        setupGesture()
         bindViewModel()
     }
     
@@ -118,14 +117,6 @@ final class LoginBottomSheetViewController: UIViewController {
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
-    }
-    
-    private func setupGesture() {
-        
-    }
-    
-    private func handlePanGesture() {
-        
     }
     
     func animateShow(with completion: (() -> Void)? = nil ) {
