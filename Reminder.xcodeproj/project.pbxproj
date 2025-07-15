@@ -13,7 +13,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		85C836ED100D79962C341623 /* Pods_Reminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCA68E532D9C4D8E005E9793 /* Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -52,20 +51,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5E4AC2C252EF700702F3D94A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				85C836ED100D79962C341623 /* Pods_Reminder.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		FCA68E4A2D9C4D8E005E9793 = {
 			isa = PBXGroup;
 			children = (
 				FCA68E552D9C4D8E005E9793 /* Reminder */,
 				FCA68E542D9C4D8E005E9793 /* Products */,
-				5E4AC2C252EF700702F3D94A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,6 +81,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FC55636B2E2690EC00030326 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FCA68E552D9C4D8E005E9793 /* Reminder */,
@@ -129,6 +120,7 @@
 				FCE355202DCCFB7F00CFE572 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FCE355232DCCFBA200CFE572 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				FCAEE1882DCE39C600022132 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				FC5563692E2690CC00030326 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FCA68E542D9C4D8E005E9793 /* Products */;
@@ -159,6 +151,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC55636B2E2690EC00030326 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FC55636A2E2690EC00030326 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FCA68E672D9C4D90005E9793 /* Debug */ = {
@@ -388,6 +387,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FC5563692E2690CC00030326 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
 		FCAEE1882DCE39C600022132 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -415,6 +422,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FC55636A2E2690EC00030326 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC5563692E2690CC00030326 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
 		FCAEE1892DCE39C600022132 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FCAEE1882DCE39C600022132 /* XCRemoteSwiftPackageReference "lottie-spm" */;

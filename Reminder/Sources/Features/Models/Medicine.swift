@@ -5,4 +5,9 @@
 //  Created by Gabriel Roveri on 07/05/25.
 //
 
-typealias Medicine = (id: Int, title: String, time: String, recurrence: String)
+struct Medicine {
+    let id: Int
+    let title: String
+    let time: String
+    let recurrence: String
+}

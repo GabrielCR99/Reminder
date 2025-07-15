@@ -18,5 +18,5 @@ public struct MetricsConstants {
     static let buttoSize: CGFloat = 56
     static let inputSize: CGFloat = 56
     static let profileImageSize: CGFloat = 68
-    static let backgroundProfileSize: CGFloat = 240   
+    static let backgroundProfileSize: CGFloat = 240
 }

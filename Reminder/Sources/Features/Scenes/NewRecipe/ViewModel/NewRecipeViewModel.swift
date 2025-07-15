@@ -12,27 +12,27 @@ final class NewRecipeViewModel {
         DBHelper.shared.insertRecipe(remedy: remedy, time: time, recurrence: recurrence, takeNow: takeNow)
         scheduleNotifications(remedy: remedy, time: time, recurrence: recurrence)
     }
-    
+
     private func scheduleNotifications(remedy: String, time: String, recurrence: String) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = "Hora de tomar o remédio"
         content.body = "Lembre-se de tomar o \(remedy)"
         content.sound = .default
-        
+
         guard let interval = getIntervalInHours(from: recurrence) else { return }
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         guard let _ = formatter.date(from: time) else { return }
-        
+
         let calendar = Calendar.current
         var currentDate = Date()
 
-        for i in 0..<(24 / interval) {
+        for index in 0..<(24 / interval) {
             let components = calendar.dateComponents([.hour, .minute], from: currentDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(identifier: "\(remedy)_\(i)", content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: "\(remedy)_\(index)", content: content, trigger: trigger)
             center.add(request) { error in
                 if let error {
                     print(error)
@@ -43,7 +43,7 @@ final class NewRecipeViewModel {
             currentDate = calendar.date(byAdding: .hour, value: interval, to: currentDate) ?? currentDate
         }
     }
-    
+
     private func getIntervalInHours(from recurrence: String) -> Int? {
         switch recurrence {
         case "De hora em hora":
@@ -60,7 +60,7 @@ final class NewRecipeViewModel {
             return 12
         default:
             return nil
-    
+
         }
     }
 }
