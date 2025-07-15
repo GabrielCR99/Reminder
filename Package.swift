@@ -4,7 +4,8 @@ import PackageDescription
 let package = Package(
     name: "Reminder",
     platforms: [
-        .iOS("13.4")
+        .iOS("13.4"),
+        .macOS("10.15"),
     ],
     products: [
         .library(
